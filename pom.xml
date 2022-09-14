@@ -80,6 +80,21 @@
 			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.10.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.minio</groupId>
+			<artifactId>minio</artifactId>
+			<version>8.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
