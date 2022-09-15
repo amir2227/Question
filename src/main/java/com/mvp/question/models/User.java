@@ -25,10 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({
-    @TypeDef(
-        name = "string-array",
-        typeClass = StringArrayType.class
-    )
+        @TypeDef(name = "string-array", typeClass = StringArrayType.class)
 })
 @Entity
 @Table(name = "users")
@@ -70,6 +67,10 @@ public class User {
     private List<Answer> answers;
     @OneToMany(mappedBy = "answerer")
     private List<Answer> my_answers;
+    @OneToMany(mappedBy = "user")
+    private List<Wallet> wallets;
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable
     private Set<Role> roles = new HashSet<>();
@@ -91,6 +92,46 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String[] getTalents() {
+        return talents;
+    }
+
+    public void setTalents(String[] talents) {
+        this.talents = talents;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public List<Answer> getMy_answers() {
+        return my_answers;
+    }
+
+    public void setMy_answers(List<Answer> my_answers) {
+        this.my_answers = my_answers;
+    }
+
+    public List<Wallet> getWallets() {
+        return wallets;
+    }
+
+    public void setWallets(List<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
     public String getUsername() {
