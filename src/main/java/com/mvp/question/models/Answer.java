@@ -2,6 +2,8 @@ package com.mvp.question.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,8 +33,9 @@ public class Answer {
     private Integer rating;
     @Column
     private Float gained_amount;
+    @Enumerated(EnumType.STRING)
     @Column(length = 32)
-    private String amount_unit;
+    private CoinType amount_unit;
     @Column(length = 1024)
     private String references;
     @ManyToOne
@@ -99,10 +102,10 @@ public class Answer {
     public void setGained_amount(Float gained_amount) {
         this.gained_amount = gained_amount;
     }
-    public String getAmount_unit() {
+    public CoinType getAmount_unit() {
         return amount_unit;
     }
-    public void setAmount_unit(String amount_unit) {
+    public void setAmount_unit(CoinType amount_unit) {
         this.amount_unit = amount_unit;
     }
     public String getReferences() {

@@ -2,6 +2,8 @@ package com.mvp.question.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,8 +20,9 @@ public class Wallet {
     private Long id;
     @Column
     private Long adderess_id;
+    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private String coin_type;
+    private CoinType coin_type;
     @Column
     private Float amount;
     @Column
@@ -31,7 +34,7 @@ public class Wallet {
     public Wallet() {
     }
 
-    public Wallet(Long adderess_id, String coin_type, Float amount, User user) {
+    public Wallet(Long adderess_id, CoinType coin_type, Float amount, User user) {
         this.adderess_id = adderess_id;
         this.coin_type = coin_type;
         this.amount = amount;
@@ -54,11 +57,11 @@ public class Wallet {
         this.adderess_id = adderess_id;
     }
 
-    public String getCoin_type() {
+    public CoinType getCoin_type() {
         return coin_type;
     }
 
-    public void setCoin_type(String coin_type) {
+    public void setCoin_type(CoinType coin_type) {
         this.coin_type = coin_type;
     }
 

@@ -23,8 +23,9 @@ public class Transaction {
     private TransactionType type; // withdraw -> bardasht or deposit -> variz
     @Column(length = 256)
     private String to;
+    @Enumerated(EnumType.STRING)
     @Column(length = 32)
-    private String coin_type;
+    private CoinType coin_type;
     @Column
     private Float amount;
 
@@ -35,7 +36,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, String to, String coin_type, Float amount, User user) {
+    public Transaction(TransactionType type, String to, CoinType coin_type, Float amount, User user) {
         this.type = type;
         this.to = to;
         this.coin_type = coin_type;
@@ -59,11 +60,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public String getCoin_type() {
+    public CoinType getCoin_type() {
         return coin_type;
     }
 
-    public void setCoin_type(String coin_type) {
+    public void setCoin_type(CoinType coin_type) {
         this.coin_type = coin_type;
     }
 
