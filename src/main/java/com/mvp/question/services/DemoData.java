@@ -4,8 +4,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.mvp.question.models.ERole;
 import com.mvp.question.models.Role;
+import com.mvp.question.models.enums.ERole;
 import com.mvp.question.repository.RoleRepo;
 
 

@@ -22,11 +22,13 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({
         @TypeDef(name = "string-array", typeClass = StringArrayType.class)
 })
+@JsonIgnoreProperties({ "password", "questions", "answers", "my_answers", "wallets", "transactions" })
 @Entity
 @Table(name = "users")
 public class User {
@@ -57,7 +59,6 @@ public class User {
 
     @NotBlank
     @Size(max = 120)
-    @JsonIgnore
     @Column(length = 120)
     private String password;
 

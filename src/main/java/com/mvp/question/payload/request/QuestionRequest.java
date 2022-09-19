@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mvp.question.models.CoinType;
+import com.mvp.question.models.enums.CoinType;
 import com.mvp.question.validations.EnumValidator;
 import com.mvp.question.validations.FileSize;
 import com.mvp.question.validations.IsValidFileType;

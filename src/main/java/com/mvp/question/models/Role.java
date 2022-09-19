@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.mvp.question.models.enums.ERole;
+
 @Entity
 @Table(name = "roles")
 public class Role {

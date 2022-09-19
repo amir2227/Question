@@ -8,9 +8,9 @@ import java.util.List;
 import com.mvp.question.exceptions.BadRequestException;
 import com.mvp.question.exceptions.DuplicatException;
 import com.mvp.question.exceptions.NotFoundException;
-import com.mvp.question.models.ERole;
 import com.mvp.question.models.Role;
 import com.mvp.question.models.User;
+import com.mvp.question.models.enums.ERole;
 import com.mvp.question.payload.request.EditUserRequest;
 import com.mvp.question.payload.request.SignupRequest;
 import com.mvp.question.repository.RoleRepo;
@@ -48,7 +48,7 @@ public class UserService {
                 signUpRequest.getEmail(),
                 signUpRequest.getPhone());
         user.setPassword(encoder.encode(signUpRequest.getPassword()));
-
+        user.setTalents(signUpRequest.getTalents());
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {

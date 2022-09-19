@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.mvp.question.models.enums.CoinType;
+
 @Entity
 @Table(name = "wallets")
 public class Wallet {

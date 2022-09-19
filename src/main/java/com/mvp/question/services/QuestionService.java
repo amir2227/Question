@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mvp.question.exceptions.BadRequestException;
-import com.mvp.question.models.CoinType;
 import com.mvp.question.models.Question;
 import com.mvp.question.models.User;
 import com.mvp.question.models.Wallet;
+import com.mvp.question.models.enums.CoinType;
 import com.mvp.question.payload.request.QuestionRequest;
 import com.mvp.question.repository.QuestionRepo;
 
@@ -46,6 +46,7 @@ public class QuestionService {
                 request.getExpire_date(), request.getHide_answers(),
                 request.getTags(), owner);
         List<Wallet> nWallets = this.subtractAmount(wallets, request.getReward_amount());
+        // update wallets 
         return questionRepo.save(question);
     }
 
@@ -64,15 +65,15 @@ public class QuestionService {
         return wallets;
     }
 
-    public Question edite() {
-    }
+    // public Question edite() {
+    // }
 
-    public Question get() {
-    }
+    // public Question get() {
+    // }
 
-    public List<Question> search() {
-    }
+    // public List<Question> search() {
+    // }
 
-    public String delete() {
-    }
+    // public String delete() {
+    // }
 }

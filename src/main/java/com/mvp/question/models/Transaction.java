@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.mvp.question.models.enums.CoinType;
+import com.mvp.question.models.enums.TransactionType;
+
 @Entity
 @Table(name = "transactions")
 public class Transaction {

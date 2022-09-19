@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class SignupRequest {
     @NotBlank
     @Email
     private String email;
+    @NotNull
+    private String[] talents;
 
     private Set<String> role;
     @NotBlank

@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mvp.question.exceptions.handleValidationExceptions;
 import com.mvp.question.models.User;
+import com.mvp.question.models.enums.CoinType;
 import com.mvp.question.payload.request.LoginRequest;
 import com.mvp.question.payload.request.SignupRequest;
 import com.mvp.question.payload.response.JwtResponse;
@@ -25,6 +27,7 @@ import com.mvp.question.payload.response.MessageResponse;
 import com.mvp.question.security.jwt.JwtUtils;
 import com.mvp.question.security.service.UserDetailsImpl;
 import com.mvp.question.services.UserService;
+import com.mvp.question.services.XapaService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -36,6 +39,8 @@ public class AuthController extends handleValidationExceptions {
     private UserService userService;
     @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
+    private XapaService xapaService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -62,4 +67,8 @@ public class AuthController extends handleValidationExceptions {
         return ResponseEntity.ok(msg);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        return ResponseEntity.ok(xapaService.getWalletId(CoinType.DOGE));
+    }
 }

@@ -18,6 +18,7 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
+import com.mvp.question.models.enums.CoinType;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
 
 @TypeDefs({
