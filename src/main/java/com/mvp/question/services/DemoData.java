@@ -1,4 +1,5 @@
 package com.mvp.question.services;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -10,10 +11,10 @@ import com.mvp.question.repository.RoleRepo;
 
 
 @Component
+@RequiredArgsConstructor
 public class DemoData {
 
-    @Autowired
-    private RoleRepo repo;
+    private final RoleRepo repo;
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) {

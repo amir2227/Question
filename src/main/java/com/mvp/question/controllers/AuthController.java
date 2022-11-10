@@ -1,9 +1,11 @@
 package com.mvp.question.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,15 +34,12 @@ import com.mvp.question.services.XapaService;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController extends handleValidationExceptions {
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private JwtUtils jwtUtils;
-    @Autowired
-    private XapaService xapaService;
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JwtUtils jwtUtils;
+    private final XapaService xapaService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -64,11 +63,12 @@ public class AuthController extends handleValidationExceptions {
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         User user = userService.create(signUpRequest);
         MessageResponse msg = new MessageResponse("successfully created.", false, 201, user);
-        return ResponseEntity.ok(msg);
+        URI uri = URI.create("http://localhost:8080/api/auth/signup").normalize();
+        return ResponseEntity.created(uri).body(msg);
     }
 
     @GetMapping("/test")
     public ResponseEntity<?> test() {
-        return ResponseEntity.ok(xapaService.getWalletId(CoinType.DOGE));
+        return ResponseEntity.ok(xapaService.generateNewAddress(CoinType.DOGE));
     }
 }

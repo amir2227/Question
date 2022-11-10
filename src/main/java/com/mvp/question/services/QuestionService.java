@@ -3,6 +3,7 @@ package com.mvp.question.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mvp.question.exceptions.BadRequestException;
@@ -12,13 +13,14 @@ import com.mvp.question.models.Wallet;
 import com.mvp.question.models.enums.CoinType;
 import com.mvp.question.payload.request.QuestionRequest;
 import com.mvp.question.repository.QuestionRepo;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class QuestionService {
 
-    @Autowired
-    private QuestionRepo questionRepo;
-    @Autowired
-    private UserService userService;
+    private final QuestionRepo questionRepo;
+    private final UserService userService;
 
     public Question create(QuestionRequest request, Long user_id) {
         User owner = userService.get(user_id);

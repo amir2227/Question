@@ -16,20 +16,19 @@ import com.mvp.question.payload.request.SignupRequest;
 import com.mvp.question.repository.RoleRepo;
 import com.mvp.question.repository.UserRepo;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepo userRepo;
-    @Autowired
-    private RoleRepo roleRepo;
-    @Autowired
-    private PasswordEncoder encoder;
+    private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
+    private final PasswordEncoder encoder;
 
     public User create(SignupRequest signUpRequest) {
         if (userRepo.existsByUsername(signUpRequest.getUsername())) {

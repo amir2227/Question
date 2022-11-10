@@ -2,6 +2,7 @@ package com.mvp.question.controllers;
 
 import javax.validation.Valid;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,10 +25,9 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
-    
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @ApiOperation(value = "edit user profile")
     @PatchMapping("")

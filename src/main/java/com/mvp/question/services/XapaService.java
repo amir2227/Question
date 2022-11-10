@@ -1,10 +1,9 @@
 package com.mvp.question.services;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.mvp.question.exceptions.BadRequestException;
+import com.mvp.question.payload.response.xapa.WalletAddressResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,6 +21,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 
 @Service
+@RequiredArgsConstructor
 public class XapaService {
 
     @Value("${xapa.api}")
@@ -35,9 +35,9 @@ public class XapaService {
     private final String WALLET_API = "wallet/";
     private final String NEW_ADDRESS_API = "/address/new"; // WALLET_API/{wallet_id}/NEW_ADDRESS_API
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    private String token;
+    private static String token;
 
     private final HttpHeaders getHeaders(){
         this.checktoken();
@@ -78,12 +78,11 @@ public class XapaService {
     }
 
     public Integer getWalletId(CoinType symbol) {
-        this.checktoken();
         Integer wallet_id = 0;
         final String url = xapaApi + "wallets";
         HttpHeaders headers = this.getHeaders();
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(null, headers);
-        ResponseEntity<WalletResponse[]> response = this.restTemplate.exchange(url, HttpMethod.GET, entity,
+        ResponseEntity<WalletResponse[]> response = restTemplate.exchange(url, HttpMethod.GET, entity,
                 WalletResponse[].class);
         for (WalletResponse w : response.getBody()) {
             if (w.getCoinType().getSymbol().equals(symbol.toString())) {
@@ -94,11 +93,23 @@ public class XapaService {
         return wallet_id;
     }
 
-    public String generateNewAddress(CoinType symbol) {
+    public Object generateNewAddress(CoinType symbol) {
         int wallet_id = this.getWalletId(symbol);
         String url = xapaApi + WALLET_API + wallet_id + NEW_ADDRESS_API;
         HttpHeaders headers = this.getHeaders();
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(null, headers);
-        return "r";
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.set("X-App-Version", "73847");
+        Map<String, String> map = new HashMap<>();
+        map.put("label", symbol.toString() + " 12");
+
+        // build the request
+        HttpEntity<Map<String, String>> entity = new HttpEntity<>(map, headers);
+        ResponseEntity<WalletAddressResponse[]> response = restTemplate.exchange(url, HttpMethod.POST, entity,
+                WalletAddressResponse[].class);
+        if(response.getStatusCode() != HttpStatus.OK){
+            throw new BadRequestException(response.getBody().toString());
+        }
+        return response.getBody();
     }
 }
